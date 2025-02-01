@@ -1,4 +1,3 @@
-
 // 1. IMPORTAR LAS DEPENDENCIAS Y MÓDULOS QUE NECESITAMOS
 import express from 'express'; 
 import dotenv from 'dotenv'; 
@@ -6,17 +5,17 @@ import { connectionMongo } from './src/config/dataBase.js';
 import usersRouter from './src/routes/user.routes.js';
 import loginRouter from './src/routes/login.routes.js';
 import cors from 'cors'; 
-//conf para el frotend
+// importaciones para acceder a las rutas del front - configurar el acceso al front
 import path from "path";
 import { fileURLToPath } from "url";
+
 // 2. configurar el uso de nuestro servidor y dependencias
 const app = express(); 
 dotenv.config(); 
 connectionMongo();
-const port = process.env.PORT || 3001
 app.use(cors()); 
 
-//conf para el frontend
+// configuraciones para acceder al front
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -25,8 +24,7 @@ app.use(express.json());
 app.use('/usuarios', usersRouter);
 app.use('/iniciarSesion', loginRouter);
 
-
-//vamos hacer la peticion para que se muestre nuestro frontend
+// vamos a hacer la petición para que se muestre nuestro front
 // Servir archivos estáticos desde la carpeta "public"
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -36,5 +34,5 @@ app.get("/", (req, res) => {
 });
 
 
+// Exportar la aplicación sin iniciar el servidor
 export default app;
-
